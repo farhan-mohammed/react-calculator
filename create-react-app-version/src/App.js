@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import Button from './Button';
 import CalculatorScreen from './CalculatorScreen';
-
+const INITAL_STATE = {
+    firstNum: 0,
+    secondNum: null,
+    ans: null,
+    action: null,
+    stage: 0,
+};
 export default class App extends Component {
-    state = {
-        firstNum: 0,
-        secondNum: null,
-        ans: null,
-        action: null,
-        stage: 0,
-    };
+    state = INITAL_STATE;
     setNumber = (i) => {
         switch (this.state.stage) {
             case 0:
@@ -34,6 +34,7 @@ export default class App extends Component {
         }
     };
     setAction = (a) => {
+        console.log(this.state);
         if (this.state.stage === 0) {
             if (this.state.firstNum === null) {
                 alert('Please enter a number first,');
@@ -49,55 +50,53 @@ export default class App extends Component {
                 ans: null,
             });
         } else {
-            this.setState({ action: a, stage: 1 });
+            this.setState({
+                firstNum: this.solve(this.state.action),
+                secondNum: null,
+                ans: null,
+                action: a,
+                stage: 1,
+            });
         }
     };
-    doEquationAction = () => {
-        if (this.state.stage === 0) {
-            alert('Please pick an operation first and enter a number');
-        } else if (this.state.stage === 1) {
-            if (this.state.secondNum === null) {
-                alert('Please enter a number.');
-            } else {
-                switch (this.state.action) {
-                    case '+':
-                        this.setState({
-                            stage: 2,
-                            ans: this.state.firstNum + this.state.secondNum,
-                        });
-                        return;
-                    case '-':
-                        this.setState({
-                            stage: 2,
-                            ans: this.state.firstNum - this.state.secondNum,
-                        });
-                        return;
-                    case 'x':
-                        this.setState({
-                            stage: 2,
-                            ans: this.state.firstNum * this.state.secondNum,
-                        });
-                        return;
-                    case '/':
-                        if (this.state.secondNum === 0) {
-                            alert('Cannot divide by 0!');
-                        } else {
-                            this.setState({
-                                stage: 2,
-                                ans: this.state.firstNum / this.state.secondNum,
-                            });
-                        }
-                        return;
-                    default:
-                        alert('Somethings Wrong!');
+    solve = (a) => {
+        switch (a) {
+            case '-':
+                return this.state.firstNum - this.state.secondNum;
+            case 'x':
+                return this.state.firstNum * this.state.secondNum;
+            case '/':
+                if (this.state.secondNum === 0) {
+                    alert('Cannot divide by 0!');
+                    return this.state.firstNum;
+                } else {
+                    return this.state.firstNum / this.state.secondNum;
                 }
-            }
-        } else if (this.state.stage === 2) {
-            //  Do nothing
+            default:
+                return this.state.firstNum + this.state.secondNum;
+        }
+    };
+    doTask = (a) => {
+        switch (a) {
+            case 'c':
+                this.setState(INITAL_STATE);
+                break;
+            default:
+                if (this.state.stage === 0) {
+                    alert('Please pick an operation first and enter a number');
+                } else if (this.state.stage === 1) {
+                    if (this.state.secondNum === null) {
+                        alert('Please enter a number.');
+                    } else {
+                        this.setState({ stage: 2, ans: this.solve(this.state.action) });
+                    }
+                } else if (this.state.stage === 2) {
+                    //  Do nothing
+                }
         }
     };
     render() {
-        let actions = [this.setNumber, this.setAction, this.doEquationAction];
+        let actions = [this.setNumber, this.setAction, this.doTask];
         let buttons = [
             { val: '+', type: 1 },
             { val: '-', type: 1 },
@@ -111,7 +110,7 @@ export default class App extends Component {
             { val: 7, type: 0 },
             { val: 8, type: 0 },
             { val: 9, type: 0 },
-            { val: '/', type: 1 },
+            { val: 'c', type: 2 },
             { val: 0, type: 0 },
             { val: '=', type: 2 },
         ];
