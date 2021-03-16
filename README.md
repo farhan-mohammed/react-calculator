@@ -5,7 +5,7 @@ This repository is meant showcases two calculator projects.
 -   `create-react-app` was built using React (create-react-app)
 -   `react-native` was built using React Native (Expo)
 
-<img src='./calc.gif'>
+<img src='./calc.gif' width="200" height="400">
 
 ## Running the React App
 
