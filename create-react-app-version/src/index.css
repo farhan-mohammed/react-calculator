@@ -64,7 +64,8 @@
     background-color: #ff9501;
 }
 .calculator-button.terminate {
-    background-color: #ff9501;
+    background-color: #a5a5a5;
+    color: #353535;
 }
 .calculator-button:hover {
     background-color: #ddd;
