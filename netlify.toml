@@ -1,0 +1,4 @@
+build]
+  base    = "create-react-app-version"
+  publish = "create-react-app-version/build/"
+  command = "npm run build"
