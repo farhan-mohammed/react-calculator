@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import CalculatorButton from './CalculatorButton';
@@ -130,7 +129,6 @@ export default class App extends React.Component {
                         <CalculatorButton val={val} type={type} action={actions[type]} />
                     ))}
                 </View>
-                <StatusBar style="auto" />
             </View>
         );
     }
