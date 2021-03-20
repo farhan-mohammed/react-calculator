@@ -10,7 +10,10 @@ const INITAL_STATE = {
     stage: 0,
 };
 export default class App extends React.Component {
-    state = INITAL_STATE;
+    constructor(props) {
+        super(props);
+        this.state = INITAL_STATE;
+    }
     // Given Number i
     setNumber = (i) => {
         switch (this.state.stage) {
@@ -99,8 +102,6 @@ export default class App extends React.Component {
                     if (this.state.secondNum === null) {
                         alert("Please enter a number.");
                     } else {
-                        console.log("here");
-                        console.log(this.solve(this.state.action));
                         this.setState({
                             stage: 2,
                             ans: this.solve(this.state.action),
