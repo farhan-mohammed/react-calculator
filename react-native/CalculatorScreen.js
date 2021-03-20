@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React, { Component } from "react";
+import { Text, View, StyleSheet } from "react-native";
 
 export default class Screen extends Component {
     renderScreenValue = () => {
@@ -10,7 +10,7 @@ export default class Screen extends Component {
         } else if (this.props.firstNum !== null) {
             return this.props.firstNum;
         }
-        return '';
+        return "";
     };
     render() {
         return (
@@ -25,11 +25,10 @@ export default class Screen extends Component {
 const styles = StyleSheet.create({
     screen: {
         fontSize: 35,
-        color: '#fff',
+        color: "#fff",
     },
     screenContainer: {
-        textAlign: 'right',
-        marginVertical: 30,
-        paddingHorizontal: 30,
+        textAlign: "right",
+        padding: 30,
     },
 });

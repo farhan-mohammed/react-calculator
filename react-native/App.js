@@ -1,7 +1,7 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import CalculatorButton from './CalculatorButton';
-import CalculatorScreen from './CalculatorScreen';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import CalculatorButton from "./CalculatorButton";
+import CalculatorScreen from "./CalculatorScreen";
 const INITAL_STATE = {
     firstNum: 0,
     secondNum: null,
@@ -29,10 +29,15 @@ export default class App extends React.Component {
                 }
                 break;
             case 2:
-                this.setState({ firstNum: i, secondNum: null, ans: null, stage: 0 });
+                this.setState({
+                    firstNum: i,
+                    secondNum: null,
+                    ans: null,
+                    stage: 0,
+                });
                 break;
             default:
-                alert('Somethings Wrong!');
+                alert("Somethings Wrong!");
         }
     };
 
@@ -53,48 +58,53 @@ export default class App extends React.Component {
             // if the stage is already 1, empty the second value into the first value
         } else {
             this.setState({
+                action: a,
+                stage: 1,
                 firstNum: this.solve(this.state.action),
                 secondNum: null,
                 ans: null,
-                action: a,
-                stage: 1,
             });
         }
     };
 
-    // Peferform action a on the first number and the second number
+    // Perform action a on the first number and the second number
     solve = (a) => {
-        console.log('ansero');
         switch (a) {
-            case '-':
+            case "-":
                 return (
-                    this.state.firstNum - (this.state.secondNum === null ? 0 : this.state.secondNum)
+                    this.state.firstNum -
+                    (this.state.secondNum === null ? 0 : this.state.secondNum)
                 );
-            case 'x':
+            case "x":
                 return (
-                    this.state.firstNum * (this.state.secondNum === null ? 1 : this.state.secondNum)
+                    this.state.firstNum *
+                    (this.state.secondNum === null ? 1 : this.state.secondNum)
                 );
             default:
                 return (
-                    this.state.firstNum + (this.state.secondNum === null ? 0 : this.state.secondNum)
+                    this.state.firstNum +
+                    (this.state.secondNum === null ? 0 : this.state.secondNum)
                 );
         }
     };
 
     doTask = (a) => {
         switch (a) {
-            case 'c':
+            case "c":
                 this.setState(INITAL_STATE);
                 break;
             default:
                 // Go from stage 1 to stage 2.
                 if (this.state.stage === 1) {
                     if (this.state.secondNum === null) {
-                        alert('Please enter a number.');
+                        alert("Please enter a number.");
                     } else {
-                        console.log('here');
+                        console.log("here");
                         console.log(this.solve(this.state.action));
-                        this.setState({ stage: 2, ans: this.solve(this.state.action) });
+                        this.setState({
+                            stage: 2,
+                            ans: this.solve(this.state.action),
+                        });
                     }
                 }
             // Do nothing when stage is 2 or 0.
@@ -103,9 +113,9 @@ export default class App extends React.Component {
 
     render() {
         let buttons = [
-            { val: '+', type: 1 },
-            { val: '-', type: 1 },
-            { val: 'x', type: 1 },
+            { val: "+", type: 1 },
+            { val: "-", type: 1 },
+            { val: "x", type: 1 },
             { val: 1, type: 0 },
             { val: 2, type: 0 },
             { val: 3, type: 0 },
@@ -115,9 +125,9 @@ export default class App extends React.Component {
             { val: 7, type: 0 },
             { val: 8, type: 0 },
             { val: 9, type: 0 },
-            { val: 'c', type: 2 },
+            { val: "c", type: 2 },
             { val: 0, type: 0 },
-            { val: '=', type: 2 },
+            { val: "=", type: 2 },
         ];
         let actions = [this.setNumber, this.setAction, this.doTask];
         return (
@@ -131,7 +141,12 @@ export default class App extends React.Component {
                 </View>
                 <View style={styles.ButtonListContainer}>
                     {buttons.map(({ val, type }) => (
-                        <CalculatorButton key={val} val={val} type={type} action={actions[type]} />
+                        <CalculatorButton
+                            key={val}
+                            val={val}
+                            type={type}
+                            action={actions[type]}
+                        />
                     ))}
                 </View>
             </View>
@@ -141,18 +156,18 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#000',
+        backgroundColor: "#000",
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
     },
     ButtonScreenContainer: {
-        width: '100%',
+        width: "100%",
     },
     ButtonListContainer: {
-        width: '100%',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
+        width: "100%",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "center",
     },
 });
